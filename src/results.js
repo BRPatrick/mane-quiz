@@ -1,3 +1,9 @@
+// Potential results for quiz
+// Each product is matched up with a list of possible coded answer combinations that will work for that product
+// Ex: 11111 = [1 1 1 1 1] = [Short Straight Fine Matte Light], this combo will result in "hair oil"
+// Ex: 32313 = [3 2 3 1 3] = [Long Wavy Thick Matte Strong], this combo will result in "hair wax"
+// Object key is the text the user will see in the result screen.
+
 const hairProduct = {
   "hair oil": ["11111", "11211", "11311", "12111", "12211", "12311"],
 

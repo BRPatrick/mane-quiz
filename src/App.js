@@ -1,64 +1,35 @@
 import React, { useState } from "react";
 import hairProduct from "./results";
+import questions from "./questions";
 
 let hairStyle = [];
 let resultId = [];
-let resultProduct = "";
+let resultProduct = 0;
 
 export default function App() {
-  const questions = [
-    {
-      questionText: "How long is your hair?",
-      answerOptions: [
-        { answerText: "Short", id: 1 },
-        { answerText: "Medium", id: 2 },
-        { answerText: "Long", id: 3 },
-      ],
-    },
-    {
-      questionText: "What is your natural hair type?",
-      answerOptions: [
-        { answerText: "Straight", id: 1 },
-        { answerText: "Wavy", id: 2 },
-      ],
-    },
-    {
-      questionText: "What is your hair structure?",
-      answerOptions: [
-        { answerText: "Fine", id: 1 },
-        { answerText: "Medium", id: 2 },
-        { answerText: "Thick", id: 3 },
-      ],
-    },
-    {
-      questionText: "Which style finish do you prefer?",
-      answerOptions: [
-        { answerText: "Matte", id: 1 },
-        { answerText: "Wet", id: 2 },
-      ],
-    },
-    {
-      questionText: "How strong of a hold do you prefer for your product?",
-      answerOptions: [
-        { answerText: "Light", id: 1 },
-        { answerText: "Medium", id: 2 },
-        { answerText: "Strong", id: 3 },
-      ],
-    },
-  ];
-
+  //Controls the current question displayed
   const [currentQuestion, setCurrentQuestion] = useState(0);
+
+  //Controls whether questions are displayed or result screen
+  const [noProduct, setNoProduct] = useState(false);
+
+  //Controls whether questions are displayed or result screen
   const [showResult, setShowResult] = useState(false);
 
+  //Handles what happens when an answer is selected, storing choices and resolving results
   const handleAnswerButtonClick = (answerText, id) => {
+    //When an answer is selected/clicked the answer and it's id's are stored in arrays
+    //and the app moves onto the next question until all questions are answered
     hairStyle[currentQuestion] = answerText;
     resultId[currentQuestion] = id;
-
     const nextQuestion = currentQuestion + 1;
 
+    //Checks if there are more questions or if results are ready to be resolved
     if (nextQuestion < questions.length) {
       setCurrentQuestion(nextQuestion);
     } else {
+      //When all answers are selected, the id array is "joined" into a single string to check for matches
+      //with various hair products in results.js and stores matching hair product
       for (const product in hairProduct) {
         hairProduct[product].forEach(function (element) {
           if (element === resultId.join("")) {
@@ -66,27 +37,52 @@ export default function App() {
           }
         });
       }
+      if (resultProduct === 0) {
+        setNoProduct(true);
+      }
+      //When all answers are selected, displays result screen
       setShowResult(true);
     }
   };
 
+  //Restarts app
   const handleRestartButtonClick = () => {
+    //Resets to initial question
     setCurrentQuestion(0);
+    //"Turns off" results screen and displays question screens again
     setShowResult(false);
+    //Resets product code
+    resultProduct = 0;
   };
 
   return (
     <div className="app">
       <h1 className="heading">MANE</h1>
+      {/* This ternary operator shows results screen if all questions are answered and "showResult state" is true 
+      or question screens in false */}
       {showResult ? (
         <div className="result-section">
-          <div className="result-text">
-            For your {hairStyle[0].toLowerCase()}, {hairStyle[1].toLowerCase()},{" "}
-            {hairStyle[2].toLowerCase()} hair we recommend{" "}
-            <span className="result-product">{resultProduct}</span> for a{" "}
-            {hairStyle[3].toLowerCase()} finish with a{" "}
-            {hairStyle[4].toLowerCase()} hold.
-          </div>
+          {noProduct ? (
+            <div className="result-text">
+              Sorry, we don't have a product to recommend for your{" "}
+              {hairStyle[0].toLowerCase()}, {hairStyle[1].toLowerCase()},{" "}
+              {hairStyle[2].toLowerCase()} hair that will give a{" "}
+              {hairStyle[3].toLowerCase()} finish with a{" "}
+              {hairStyle[4].toLowerCase()} hold.
+            </div>
+          ) : (
+            <>
+              <div className="result-text">
+                For your {hairStyle[0].toLowerCase()},{" "}
+                {hairStyle[1].toLowerCase()}, {hairStyle[2].toLowerCase()} hair
+                we recommend{" "}
+                <span className="result-product">{resultProduct}</span> for a{" "}
+                {hairStyle[3].toLowerCase()} finish with a{" "}
+                {hairStyle[4].toLowerCase()} hold.
+              </div>
+            </>
+          )}
+
           <button className="restart-button" onClick={handleRestartButtonClick}>
             Restart
           </button>
@@ -99,6 +95,7 @@ export default function App() {
             </div>
           </div>
           <div className="answer-section">
+            {/* This awesome little map function loops through and shows all of the possible answer options */}
             {questions[currentQuestion].answerOptions.map((answerOption) => (
               <button
                 onClick={() =>
