@@ -1,13 +1,126 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+} */
+
+*,
+*::after,
+*::before {
+  /* Gets rid of all browser default margins/paddings/borders to build from scratch */
+  margin: 0;
+  padding: 0;
+  /*Forces box-sizing to be an inherited property, carrying over from parent element to child element*/
+  box-sizing: inherit;
+}
+
+html {
+  /* Sets 1 rem to be 10px */
+  /* Default browser font-size is 16px, to get 10px: .625*16px=10px */
+  font-size: 62.5%;
+}
+
+/* imported fonts:
+font-family: 'Alegreya', serif;
+font-family: 'Antic Didone', serif;
+font-family: 'Open Sans', sans-serif; */
+
+body {
+  /* Includes border and padding in total width/height of element */
+  font-family: "Antic Didone", serif;
+  font-weight: 400;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #1f1f1f 25%, transparent 25%) -50px 0,
+    linear-gradient(225deg, #1f1f1f 25%, transparent 25%) -50px 0,
+    linear-gradient(315deg, #1f1f1f 25%, transparent 25%),
+    linear-gradient(45deg, #1f1f1f 25%, transparent 25%);
+  background-size: 100px 100px;
+  background-color: #2e2e2e;
+  text-align: center;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+button {
+  font-size: 2rem;
+  font-family: "Alegreya", serif;
+  color: #ffffff;
+  background-color: #181818;
+  border-radius: 10px;
+  border: 5px solid #505050;
+  padding: 2px;
+  margin: 1rem;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #505050;
+}
+button:focus {
+  outline: 0;
+}
+
+.app {
+  margin: 3rem 1rem;
+  background-color: #1f1f1f;
+
+  border: 5px solid #000;
+  border-radius: 10px;
+  /* padding: 20px; */
+  box-shadow: 10px 10px 42px 0px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  font-size: 4rem;
+  color: #fff;
+  font-weight: 400;
+
+  background-color: black;
+  /* letter-spacing: 0.2rem; */
+}
+
+.question-text {
+  font-size: 3rem;
+  color: #fff;
+  padding: 1rem;
+}
+
+.answer-section {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  align-self: center;
+  margin: 2px 0;
+  max-width: 20rem;
+}
+
+.result-section {
+  font-size: 3rem;
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-text {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.result-product {
+  border-bottom: 1px solid currentColor;
+  display: inline-block;
+  line-height: 0.95;
+}
+.restart-button {
+  width: 70%;
+  align-self: center;
 }
