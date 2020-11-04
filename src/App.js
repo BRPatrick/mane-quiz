@@ -42,6 +42,7 @@ export default function App() {
       ];
     }
 
+    console.log(resultId);
     const nextQuestion = currentQuestion + 1;
 
     //Checks if there are more questions or if results are ready to be resolved
