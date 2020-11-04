@@ -22,6 +22,26 @@ export default function App() {
     //and the app moves onto the next question until all questions are answered
     hairStyle[currentQuestion] = answerText;
     resultId[currentQuestion] = id;
+
+    //Handles special case of 3rd question where possible options are limited by previous choice
+    if (answerText === "Curly") {
+      questions[2].answerOptions = [
+        { answerText: "Loose", id: 4 },
+        { answerText: "Tight", id: 5 },
+      ];
+    } else if (answerText === "Kinky-Curl") {
+      questions[2].answerOptions = [
+        { answerText: "Soft", id: 6 },
+        { answerText: "Wirey", id: 7 },
+      ];
+    } else {
+      questions[2].answerOptions = [
+        { answerText: "Fine", id: 1 },
+        { answerText: "Medium", id: 2 },
+        { answerText: "Thick", id: 3 },
+      ];
+    }
+
     const nextQuestion = currentQuestion + 1;
 
     //Checks if there are more questions or if results are ready to be resolved
@@ -67,19 +87,19 @@ export default function App() {
             <div className="result-text">
               Sorry, we don't have a product to recommend for your{" "}
               {hairStyle[0].toLowerCase()}, {hairStyle[1].toLowerCase()},{" "}
-              {hairStyle[2].toLowerCase()} hair that will give a{" "}
-              {hairStyle[3].toLowerCase()} finish with a{" "}
-              {hairStyle[4].toLowerCase()} hold.
+              {hairStyle[2].toLowerCase()}, {hairStyle[3].toLowerCase()} hair
+              that will give a {hairStyle[4].toLowerCase()} finish with a{" "}
+              {hairStyle[5].toLowerCase()} hold.
             </div>
           ) : (
             <>
               <div className="result-text">
                 For your {hairStyle[0].toLowerCase()},{" "}
-                {hairStyle[1].toLowerCase()}, {hairStyle[2].toLowerCase()} hair
-                we recommend{" "}
+                {hairStyle[1].toLowerCase()}, {hairStyle[2].toLowerCase()},{" "}
+                {hairStyle[3].toLowerCase()} hair we recommend{" "}
                 <span className="result-product">{resultProduct}</span> for a{" "}
-                {hairStyle[3].toLowerCase()} finish with a{" "}
-                {hairStyle[4].toLowerCase()} hold.
+                {hairStyle[4].toLowerCase()} finish with a{" "}
+                {hairStyle[5].toLowerCase()} hold.
               </div>
             </>
           )}
