@@ -51,7 +51,8 @@ export default function App() {
     setCurrentQuestion(0);
     //"Turns off" results screen and displays question screens again
     setShowResult(false);
-    //Resets product code
+    //Resets product code and result screen
+    setNoProduct(false);
     resultProduct = 0;
   };
 
